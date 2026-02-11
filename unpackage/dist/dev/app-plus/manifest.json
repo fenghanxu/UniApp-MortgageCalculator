@@ -34,7 +34,6 @@
     },
     "popGesture": "close",
     "launchwebview": {
-      "render": "always",
       "id": "1",
       "kernel": "WKWebview"
     },
@@ -81,6 +80,12 @@
       "enable": false
     },
     "allowsInlineMediaPlayback": true,
+    "safearea": {
+      "background": "#ffffff",
+      "bottom": {
+        "offset": "auto"
+      }
+    },
     "uni-app": {
       "control": "uni-v3",
       "vueVersion": "3",
@@ -94,6 +99,50 @@
       "webView": {
         "minUserAgentVersion": "49.0"
       }
+    },
+    "tabBar": {
+      "position": "bottom",
+      "color": "#b5b5b5",
+      "selectedColor": "#3CB371",
+      "borderStyle": "#000000",
+      "blurEffect": "none",
+      "fontSize": "10px",
+      "iconWidth": "24px",
+      "spacing": "3px",
+      "height": "50px",
+      "list": [
+        {
+          "pagePath": "pages/calculator/calculator",
+          "text": "计算器",
+          "iconPath": "/static/tabbar/calculator_normal.png",
+          "selectedIconPath": "/static/tabbar/calculator_select.png"
+        },
+        {
+          "pagePath": "pages/collection/collection",
+          "text": "收藏",
+          "iconPath": "/static/tabbar/collect_normal.png",
+          "selectedIconPath": "/static/tabbar/collect_select.png"
+        },
+        {
+          "pagePath": "pages/history/history",
+          "text": "历史",
+          "iconPath": "/static/tabbar/history_normal.png",
+          "selectedIconPath": "/static/tabbar/history_select.png"
+        },
+        {
+          "pagePath": "pages/me/me",
+          "text": "我的",
+          "iconPath": "/static/tabbar/me_normal.png",
+          "selectedIconPath": "/static/tabbar/me_select.png"
+        }
+      ],
+      "backgroundColor": "#ffffff",
+      "selectedIndex": 0,
+      "shown": true,
+      "child": [
+        "lauchwebview"
+      ],
+      "selected": 0
     }
   },
   "app-harmony": {
@@ -103,6 +152,12 @@
     },
     "uniStatistics": {
       "enable": false
+    },
+    "safearea": {
+      "background": "#ffffff",
+      "bottom": {
+        "offset": "auto"
+      }
     }
   },
   "launch_path": "__uniappview.html"

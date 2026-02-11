@@ -1,9 +1,27 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/calculator/calculator",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "计算器"
+			}
+		},
+		{
+			"path": "pages/collection/collection",
+			"style": {
+				"navigationBarTitleText": "收藏"
+			}
+		},
+		{
+			"path": "pages/history/history",
+			"style": {
+				"navigationBarTitleText": "历史"
+			}
+		},
+		{
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "我"
 			}
 		}
 	],
@@ -13,5 +31,37 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#b5b5b5",
+		"selectedColor": "#3CB371",
+		"borderStyle": "#000000",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/calculator/calculator",
+				"text": "计算器",
+				"iconPath": "/static/tabbar/calculator_normal.png",
+				"selectedIconPath": "/static/tabbar/calculator_select.png"
+			},
+			{
+				"pagePath": "pages/collection/collection",
+				"text": "收藏",
+				"iconPath": "/static/tabbar/collect_normal.png",
+				"selectedIconPath": "/static/tabbar/collect_select.png"
+			},
+			{
+				"pagePath": "pages/history/history",
+				"text": "历史",
+				"iconPath": "/static/tabbar/history_normal.png",
+				"selectedIconPath": "/static/tabbar/history_select.png"
+			},
+			{
+				"pagePath": "pages/me/me",
+				"text": "我的",
+				"iconPath": "/static/tabbar/me_normal.png",
+				"selectedIconPath": "/static/tabbar/me_select.png"
+			}
+		]
+	}
 }
