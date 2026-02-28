@@ -36,9 +36,9 @@
   margin-right:0;
 }
 .btn.active[data-v-0492adce]{
-  background:#E6F0FF;
-  color:#3B82F6;
-  border:0.03125rem solid #3B82F6;
+  background:#EBFFF5;
+  color:#3CB371;
+  border:0.03125rem solid #3CB371;
 }
 
 /* 表单 */
@@ -88,7 +88,7 @@
 /* 提交按钮 */
 .submit[data-v-0492adce]{
   height:3.125rem;
-  background:#3B82F6;
+  background:#3CB371;
   color:#fff;
   text-align:center;
   line-height:3.125rem;

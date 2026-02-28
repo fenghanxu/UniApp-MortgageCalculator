@@ -51,7 +51,9 @@ const changeTab = (index) => {
 }
 
 const handleClick = (index) => {
-  console.log(index)
+    uni.navigateTo({
+      url: '/pages/calculatorDetail/calculatorDetail'
+    })
 }
 </script>
 
@@ -87,8 +89,8 @@ const handleClick = (index) => {
 }
 
 .tab.active {
-  background: #E6F0FF;
-  color: #3B82F6;
+  background: #EBFFF5;
+  color: #3CB371;
   border: none;
 }
 

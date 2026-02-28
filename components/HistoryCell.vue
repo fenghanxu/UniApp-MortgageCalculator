@@ -143,7 +143,7 @@ const formatNumber = (num) => {
 .detail {
   display: flex;
   align-items: center;
-  color: #3B82F6;
+  color: #3CB371;
 }
 
 .detail-text {

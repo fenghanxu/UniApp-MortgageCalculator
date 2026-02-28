@@ -54,6 +54,7 @@
 	          />
 	  
 	          <slider
+				activeColor="#3CB371"
 	            :value="loanAmount"
 	            min="1"
 	            max="100"
@@ -79,6 +80,7 @@
 	          />
 	  
 	          <slider
+				activeColor="#3CB371"
 	            :value="loanTerm"
 	            min="1"
 	            max="30"
@@ -194,9 +196,9 @@ const goDetail = () => {
 }
 
 .btn.active{
-  background:#E6F0FF;
-  color:#3B82F6;
-  border:1rpx solid #3B82F6;
+  background:#EBFFF5;
+  color:#3CB371;
+  border:1rpx solid #3CB371;
 }
 
 /* 表单 */
@@ -253,7 +255,7 @@ const goDetail = () => {
 /* 提交按钮 */
 .submit{
   height:100rpx;
-  background:#3B82F6;
+  background:#3CB371;
   color:#fff;
   text-align:center;
   line-height:100rpx;

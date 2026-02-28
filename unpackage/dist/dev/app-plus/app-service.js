@@ -31,6 +31,31 @@ if (uni.restoreGlobal) {
 }
 (function(vue) {
   "use strict";
+  const ON_SHOW = "onShow";
+  const ON_LOAD = "onLoad";
+  function formatAppLog(type, filename, ...args) {
+    if (uni.__log__) {
+      uni.__log__(type, filename, ...args);
+    } else {
+      console[type].apply(console, [...args, filename]);
+    }
+  }
+  const createLifeCycleHook = (lifecycle, flag = 0) => (hook, target = vue.getCurrentInstance()) => {
+    !vue.isInSSRComponentSetup && vue.injectHook(lifecycle, hook, target);
+  };
+  const onShow = /* @__PURE__ */ createLifeCycleHook(
+    ON_SHOW,
+    1 | 2
+    /* HookFlags.PAGE */
+  );
+  const onLoad = /* @__PURE__ */ createLifeCycleHook(
+    ON_LOAD,
+    2
+    /* HookFlags.PAGE */
+  );
+  const _imports_0$5 = "/static/logo.png";
+  const _imports_0$4 = "/static/login_phone.png";
+  const _imports_0$3 = "/static/login_passworld.png";
   const _export_sfc = (sfc, props) => {
     const target = sfc.__vccOpts || sfc;
     for (const [key, val] of props) {
@@ -38,7 +63,116 @@ if (uni.restoreGlobal) {
     }
     return target;
   };
-  const _sfc_main$b = {
+  const _sfc_main$f = {
+    __name: "login",
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const phone = vue.ref("");
+      const password = vue.ref("");
+      const onPhoneInput = (e) => {
+        formatAppLog("log", "at pages/login/login.vue:68", "手机号输入:", phone.value);
+      };
+      const onPasswordInput = (e) => {
+        formatAppLog("log", "at pages/login/login.vue:72", "密码输入:", password.value);
+      };
+      const goReset = () => {
+        uni.navigateTo({
+          url: "/pages/reset/reset"
+        });
+      };
+      const goRegister = () => {
+        uni.navigateTo({
+          url: "/pages/register/register"
+        });
+      };
+      const handleLogin = () => {
+        uni.reLaunch({
+          url: "/pages/calculator/calculator"
+        });
+      };
+      const __returned__ = { phone, password, onPhoneInput, onPasswordInput, goReset, goRegister, handleLogin, ref: vue.ref };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
+      vue.createElementVNode("image", {
+        class: "logo",
+        src: _imports_0$5,
+        mode: "aspectFill"
+      }),
+      vue.createElementVNode("view", { class: "card" }, [
+        vue.createElementVNode("view", { class: "title" }, "欢迎登录"),
+        vue.createElementVNode("view", { class: "subtitle" }, "请输入账号登录您的账户"),
+        vue.createElementVNode("view", { class: "label" }, "手机号"),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            class: "icon",
+            src: _imports_0$4,
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $setup.phone = $event),
+              type: "number",
+              placeholder: "请输入手机号码",
+              class: "input",
+              onInput: $setup.onPhoneInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.phone]
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "label" }, "密码"),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            class: "icon",
+            src: _imports_0$3,
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.password = $event),
+              password: "",
+              placeholder: "请输入手机密码",
+              class: "input",
+              onInput: $setup.onPasswordInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.password]
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "forget-wrapper" }, [
+          vue.createElementVNode("text", {
+            class: "forget",
+            onClick: $setup.goReset
+          }, "忘记密码?")
+        ]),
+        vue.createElementVNode("button", {
+          class: "login-btn",
+          onClick: $setup.handleLogin
+        }, " 登录 ")
+      ]),
+      vue.createElementVNode("view", { class: "register-wrapper" }, [
+        vue.createElementVNode("text", { class: "normal" }, "还没有账号?"),
+        vue.createElementVNode("text", {
+          class: "register",
+          onClick: $setup.goRegister
+        }, "立即注册")
+      ])
+    ]);
+  }
+  const PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$e], ["__scopeId", "data-v-e4e4508d"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/login/login.vue"]]);
+  const _sfc_main$e = {
     __name: "calculator",
     setup(__props, { expose: __expose }) {
       __expose();
@@ -60,7 +194,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("scroll-view", {
       "scroll-y": "",
       class: "page"
@@ -122,6 +256,7 @@ if (uni.restoreGlobal) {
             [vue.vModelText, $setup.loanAmount]
           ]),
           vue.createElementVNode("slider", {
+            activeColor: "#3CB371",
             value: $setup.loanAmount,
             min: "1",
             max: "100",
@@ -151,6 +286,7 @@ if (uni.restoreGlobal) {
             [vue.vModelText, $setup.loanTerm]
           ]),
           vue.createElementVNode("slider", {
+            activeColor: "#3CB371",
             value: $setup.loanTerm,
             min: "1",
             max: "30",
@@ -202,25 +338,9 @@ if (uni.restoreGlobal) {
       }, " 开始计算 ")
     ]);
   }
-  const PagesCalculatorCalculator = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$a], ["__scopeId", "data-v-0492adce"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/calculator/calculator.vue"]]);
-  const ON_SHOW = "onShow";
-  function formatAppLog(type, filename, ...args) {
-    if (uni.__log__) {
-      uni.__log__(type, filename, ...args);
-    } else {
-      console[type].apply(console, [...args, filename]);
-    }
-  }
-  const createLifeCycleHook = (lifecycle, flag = 0) => (hook, target = vue.getCurrentInstance()) => {
-    !vue.isInSSRComponentSetup && vue.injectHook(lifecycle, hook, target);
-  };
-  const onShow = /* @__PURE__ */ createLifeCycleHook(
-    ON_SHOW,
-    1 | 2
-    /* HookFlags.PAGE */
-  );
+  const PagesCalculatorCalculator = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$d], ["__scopeId", "data-v-0492adce"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/calculator/calculator.vue"]]);
   const _imports_2 = "/static/collection_detail.png";
-  const _sfc_main$a = {
+  const _sfc_main$d = {
     __name: "CollectViewCell",
     props: {
       data: Object
@@ -240,7 +360,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", {
       class: "cell",
       onClick: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("click"))
@@ -321,8 +441,8 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const CollectViewCell = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$9], ["__scopeId", "data-v-872aa212"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/CollectViewCell.vue"]]);
-  const _sfc_main$9 = {
+  const CollectViewCell = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$c], ["__scopeId", "data-v-872aa212"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/CollectViewCell.vue"]]);
+  const _sfc_main$c = {
     __name: "collection",
     setup(__props, { expose: __expose }) {
       __expose();
@@ -341,14 +461,16 @@ if (uni.restoreGlobal) {
         activeIndex.value = index;
       };
       const handleClick = (index) => {
-        formatAppLog("log", "at pages/collection/collection.vue:54", index);
+        uni.navigateTo({
+          url: "/pages/calculatorDetail/calculatorDetail"
+        });
       };
       const __returned__ = { tabs, activeIndex, rawList, list, changeTab, handleClick, ref: vue.ref, computed: vue.computed, CollectViewCell };
       Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
       return __returned__;
     }
   };
-  function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
       vue.createElementVNode("scroll-view", {
         "scroll-x": "",
@@ -390,10 +512,10 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const PagesCollectionCollection = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$8], ["__scopeId", "data-v-cd17183b"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/collection/collection.vue"]]);
-  const _imports_0$3 = "/static/history_collection_normal.png";
+  const PagesCollectionCollection = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$b], ["__scopeId", "data-v-cd17183b"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/collection/collection.vue"]]);
+  const _imports_0$2 = "/static/history_collection_normal.png";
   const _imports_1 = "/static/history_delect.png";
-  const _sfc_main$8 = {
+  const _sfc_main$b = {
     __name: "HistoryCell",
     props: {
       data: Object
@@ -409,7 +531,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", {
       class: "cell",
       onClick: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("click"))
@@ -425,7 +547,7 @@ if (uni.restoreGlobal) {
           ),
           vue.createElementVNode("view", { class: "right-icons" }, [
             vue.createElementVNode("image", {
-              src: _imports_0$3,
+              src: _imports_0$2,
               class: "icon"
             }),
             vue.createElementVNode("image", {
@@ -495,9 +617,9 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const HistoryCell = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$7], ["__scopeId", "data-v-5c67d339"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/HistoryCell.vue"]]);
-  const _imports_0$2 = "/static/search_history.png";
-  const _sfc_main$7 = {
+  const HistoryCell = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$a], ["__scopeId", "data-v-5c67d339"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/HistoryCell.vue"]]);
+  const _imports_0$1 = "/static/search_history.png";
+  const _sfc_main$a = {
     __name: "HistoryHeaderView",
     emits: ["search"],
     setup(__props, { expose: __expose, emit: __emit }) {
@@ -512,11 +634,11 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "header" }, [
       vue.createElementVNode("view", { class: "search-box" }, [
         vue.createElementVNode("image", {
-          src: _imports_0$2,
+          src: _imports_0$1,
           class: "search-icon"
         }),
         vue.withDirectives(vue.createElementVNode(
@@ -536,8 +658,8 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const HistoryHeaderView = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$6], ["__scopeId", "data-v-d537e88b"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/HistoryHeaderView.vue"]]);
-  const _sfc_main$6 = {
+  const HistoryHeaderView = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$9], ["__scopeId", "data-v-d537e88b"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/HistoryHeaderView.vue"]]);
+  const _sfc_main$9 = {
     __name: "history",
     setup(__props, { expose: __expose }) {
       __expose();
@@ -560,17 +682,19 @@ if (uni.restoreGlobal) {
         }
       ]);
       const handleClick = (index) => {
-        formatAppLog("log", "at pages/history/history.vue:45", index);
+        uni.navigateTo({
+          url: "/pages/calculatorDetail/calculatorDetail"
+        });
       };
       const handleSearch = (value) => {
-        formatAppLog("log", "at pages/history/history.vue:49", "搜索内容：", value);
+        formatAppLog("log", "at pages/history/history.vue:51", "搜索内容：", value);
       };
       const __returned__ = { list, handleClick, handleSearch, ref: vue.ref, HistoryCell, HistoryHeaderView };
       Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
       return __returned__;
     }
   };
-  function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
       vue.createVNode($setup["HistoryHeaderView"], { onSearch: $setup.handleSearch }),
       vue.createElementVNode("scroll-view", {
@@ -593,9 +717,9 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const PagesHistoryHistory = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5], ["__scopeId", "data-v-b2d018fa"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/history/history.vue"]]);
-  const _imports_0$1 = "/static/me_arrow.png";
-  const _sfc_main$5 = {
+  const PagesHistoryHistory = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$8], ["__scopeId", "data-v-b2d018fa"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/history/history.vue"]]);
+  const _imports_0 = "/static/me_arrow.png";
+  const _sfc_main$8 = {
     __name: "MeButton",
     props: {
       imageColor: { type: String, default: "#eee" },
@@ -612,7 +736,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", {
       class: "me-btn",
       onClick: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("click"))
@@ -645,7 +769,7 @@ if (uni.restoreGlobal) {
       $props.showArrow ? (vue.openBlock(), vue.createElementBlock("image", {
         key: 0,
         class: "arrow",
-        src: _imports_0$1,
+        src: _imports_0,
         mode: "aspectFit"
       })) : (vue.openBlock(), vue.createElementBlock(
         "text",
@@ -659,9 +783,8 @@ if (uni.restoreGlobal) {
       ))
     ]);
   }
-  const MeButton = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4], ["__scopeId", "data-v-0d2226e7"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/MeButton.vue"]]);
-  const _imports_0 = "/static/logo.png";
-  const _sfc_main$4 = {
+  const MeButton = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$7], ["__scopeId", "data-v-0d2226e7"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/MeButton.vue"]]);
+  const _sfc_main$7 = {
     __name: "me",
     setup(__props, { expose: __expose }) {
       __expose();
@@ -703,7 +826,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("scroll-view", {
       "scroll-y": "",
       class: "page"
@@ -712,7 +835,7 @@ if (uni.restoreGlobal) {
         vue.createElementVNode("view", { class: "login-card" }, [
           vue.createElementVNode("image", {
             class: "avatar",
-            src: _imports_0
+            src: _imports_0$5
           }),
           vue.createElementVNode("text", { class: "login-title" }, "未登录"),
           vue.createElementVNode("text", { class: "login-sub" }, "登录后可同步计算记录"),
@@ -787,9 +910,9 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const PagesMeMe = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__scopeId", "data-v-19c123a7"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/me/me.vue"]]);
-  const _sfc_main$3 = {};
-  function _sfc_render$2(_ctx, _cache) {
+  const PagesMeMe = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$6], ["__scopeId", "data-v-19c123a7"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/me/me.vue"]]);
+  const _sfc_main$6 = {};
+  function _sfc_render$5(_ctx, _cache) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "header" }, [
       vue.createElementVNode("text", { class: "col period" }, "期数"),
       vue.createElementVNode("text", { class: "col" }, "月供(元)"),
@@ -797,8 +920,8 @@ if (uni.restoreGlobal) {
       vue.createElementVNode("text", { class: "col" }, "利息(元)")
     ]);
   }
-  const CalculatorDetailHeader = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__scopeId", "data-v-a2de4d60"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/CalculatorDetailHeader.vue"]]);
-  const _sfc_main$2 = {
+  const CalculatorDetailHeader = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5], ["__scopeId", "data-v-a2de4d60"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/CalculatorDetailHeader.vue"]]);
+  const _sfc_main$5 = {
     __name: "RepaymentDetailRow",
     props: {
       data: Object
@@ -814,7 +937,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "row" }, [
       vue.createElementVNode(
         "text",
@@ -846,8 +969,8 @@ if (uni.restoreGlobal) {
       )
     ]);
   }
-  const RepaymentDetailRow = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__scopeId", "data-v-81b0b21a"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/RepaymentDetailRow.vue"]]);
-  const _sfc_main$1 = {
+  const RepaymentDetailRow = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4], ["__scopeId", "data-v-81b0b21a"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/components/RepaymentDetailRow.vue"]]);
+  const _sfc_main$4 = {
     __name: "calculatorDetail",
     setup(__props, { expose: __expose }) {
       __expose();
@@ -873,7 +996,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("scroll-view", {
       "scroll-y": "",
       class: "page"
@@ -950,12 +1073,293 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const PagesCalculatorDetailCalculatorDetail = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__scopeId", "data-v-88eb0a2d"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/calculatorDetail/calculatorDetail.vue"]]);
+  const PagesCalculatorDetailCalculatorDetail = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__scopeId", "data-v-88eb0a2d"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/calculatorDetail/calculatorDetail.vue"]]);
+  const _sfc_main$3 = {
+    __name: "register",
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const phone = vue.ref("");
+      const password = vue.ref("");
+      const confirmPassword = vue.ref("");
+      const agree = vue.ref(false);
+      const handleInput = (e) => {
+        formatAppLog("log", "at pages/register/register.vue:91", e.detail.value);
+      };
+      const goProtocol = (title) => {
+        uni.navigateTo({
+          url: `/pages/webview/webview?title=${title}`
+        });
+      };
+      const register = () => {
+        if (!phone.value) {
+          return uni.showToast({ title: "请输入手机号", icon: "none" });
+        }
+        if (password.value.length < 6) {
+          return uni.showToast({ title: "密码至少6位", icon: "none" });
+        }
+        if (password.value !== confirmPassword.value) {
+          return uni.showToast({ title: "两次密码不一致", icon: "none" });
+        }
+        if (!agree.value) {
+          return uni.showToast({ title: "请先同意协议", icon: "none" });
+        }
+        uni.showToast({
+          title: "注册成功",
+          icon: "success"
+        });
+      };
+      const __returned__ = { phone, password, confirmPassword, agree, handleInput, goProtocol, register, ref: vue.ref };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
+      vue.createElementVNode("view", { class: "title" }, "创建账号"),
+      vue.createElementVNode("view", { class: "subtitle" }, "编写以下信息完成注册"),
+      vue.createElementVNode("view", { class: "card" }, [
+        vue.createElementVNode("view", { class: "label" }, "手机号"),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            src: _imports_0$4,
+            class: "icon",
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $setup.phone = $event),
+              type: "number",
+              placeholder: "请输入手机号码",
+              class: "input",
+              onInput: $setup.handleInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.phone]
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "label" }, "设置密码"),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            src: _imports_0$3,
+            class: "icon",
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.password = $event),
+              password: "",
+              placeholder: "请输入6-18位密码",
+              class: "input",
+              onInput: $setup.handleInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.password]
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "label" }, "确认密码"),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            src: _imports_0$3,
+            class: "icon",
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $setup.confirmPassword = $event),
+              password: "",
+              placeholder: "请再次输入6-18位密码",
+              class: "input",
+              onInput: $setup.handleInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.confirmPassword]
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "agreement" }, [
+          vue.createElementVNode("view", {
+            class: "checkbox",
+            onClick: _cache[3] || (_cache[3] = ($event) => $setup.agree = !$setup.agree)
+          }, [
+            vue.createElementVNode("image", {
+              src: $setup.agree ? "/static/selectionbox_choose.png" : "/static/selectionbox_nochoose.png",
+              class: "check-icon"
+            }, null, 8, ["src"])
+          ]),
+          vue.createElementVNode("text", { class: "gray" }, "注册即表示同意"),
+          vue.createElementVNode("text", {
+            class: "link",
+            onClick: _cache[4] || (_cache[4] = ($event) => $setup.goProtocol("用户服务协议"))
+          }, " 《用户服务协议》 "),
+          vue.createElementVNode("text", { class: "gray" }, "和"),
+          vue.createElementVNode("text", {
+            class: "link",
+            onClick: _cache[5] || (_cache[5] = ($event) => $setup.goProtocol("隐私政策"))
+          }, " 《隐私政策》 ")
+        ]),
+        vue.createElementVNode("button", {
+          class: "register-btn",
+          onClick: $setup.register
+        }, " 注册账号 ")
+      ])
+    ]);
+  }
+  const PagesRegisterRegister = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__scopeId", "data-v-bac4a35d"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/register/register.vue"]]);
+  const _sfc_main$2 = {
+    __name: "webview",
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const url = vue.ref("https://example.com");
+      onLoad((options) => {
+        if (options.title === "用户服务协议") {
+          url.value = "/pages/webview/Data/用户服务协议.html";
+        } else {
+          url.value = "/pages/webview/Data/隐私政策.html";
+        }
+      });
+      const __returned__ = { url, get onLoad() {
+        return onLoad;
+      }, ref: vue.ref };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("web-view", { src: $setup.url }, null, 8, ["src"]);
+  }
+  const PagesWebviewWebview = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/webview/webview.vue"]]);
+  const _sfc_main$1 = {
+    __name: "reset",
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const password = vue.ref("");
+      const confirmPassword = vue.ref("");
+      const isMatch = vue.computed(() => {
+        return password.value.length >= 6 && confirmPassword.value.length >= 6 && password.value === confirmPassword.value;
+      });
+      const handleInput = (e) => {
+        formatAppLog("log", "at pages/reset/reset.vue:86", e.detail.value);
+      };
+      const submit = () => {
+        if (!isMatch.value) {
+          uni.showToast({
+            title: "密码不匹配",
+            icon: "none"
+          });
+          return;
+        }
+        uni.showToast({
+          title: "修改成功",
+          icon: "success"
+        });
+      };
+      const __returned__ = { password, confirmPassword, isMatch, handleInput, submit, ref: vue.ref, computed: vue.computed };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
+      vue.createElementVNode("view", { class: "title" }, "重置密码"),
+      vue.createElementVNode("view", { class: "subtitle" }, "请设置您的新密码以继续使用账户"),
+      vue.createElementVNode("view", { class: "card" }, [
+        vue.createElementVNode("view", { class: "label-row" }, [
+          vue.createElementVNode("text", { class: "label" }, "设置密码"),
+          vue.createElementVNode("text", { class: "label-sub" }, "至少8个字符")
+        ]),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            class: "icon",
+            src: _imports_0$3,
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $setup.password = $event),
+              class: "input",
+              type: "number",
+              password: "",
+              maxlength: "18",
+              placeholder: "请输入6-18位密码",
+              onInput: $setup.handleInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.password]
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "label-row confirm-top" }, [
+          vue.createElementVNode("text", { class: "label" }, "确认密码"),
+          vue.createElementVNode("view", { class: "match-status" }, [
+            vue.createElementVNode("image", {
+              class: "match-icon",
+              src: $setup.isMatch ? "/static/resetPassword_check.png" : "/static/resetPassword_uncheck.png",
+              mode: "aspectFit"
+            }, null, 8, ["src"]),
+            vue.createElementVNode(
+              "text",
+              { class: "match-text" },
+              vue.toDisplayString($setup.isMatch ? "密码匹配" : "密码不匹配"),
+              1
+              /* TEXT */
+            )
+          ])
+        ]),
+        vue.createElementVNode("view", { class: "input-box" }, [
+          vue.createElementVNode("image", {
+            class: "icon",
+            src: _imports_0$3,
+            mode: "aspectFit"
+          }),
+          vue.withDirectives(vue.createElementVNode(
+            "input",
+            {
+              "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.confirmPassword = $event),
+              class: "input",
+              type: "number",
+              password: "",
+              maxlength: "18",
+              placeholder: "请再次输入6-18位密码",
+              onInput: $setup.handleInput
+            },
+            null,
+            544
+            /* NEED_HYDRATION, NEED_PATCH */
+          ), [
+            [vue.vModelText, $setup.confirmPassword]
+          ])
+        ])
+      ]),
+      vue.createElementVNode("button", {
+        class: "confirm-btn",
+        onClick: $setup.submit
+      }, " 确认 ")
+    ]);
+  }
+  const PagesResetReset = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__scopeId", "data-v-76af0740"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/reset/reset.vue"]]);
+  __definePage("pages/login/login", PagesLoginLogin);
   __definePage("pages/calculator/calculator", PagesCalculatorCalculator);
   __definePage("pages/collection/collection", PagesCollectionCollection);
   __definePage("pages/history/history", PagesHistoryHistory);
   __definePage("pages/me/me", PagesMeMe);
   __definePage("pages/calculatorDetail/calculatorDetail", PagesCalculatorDetailCalculatorDetail);
+  __definePage("pages/register/register", PagesRegisterRegister);
+  __definePage("pages/webview/webview", PagesWebviewWebview);
+  __definePage("pages/reset/reset", PagesResetReset);
   const _sfc_main = {
     onLaunch: function() {
       formatAppLog("log", "at App.vue:4", "App Launch");

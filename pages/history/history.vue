@@ -42,7 +42,9 @@ const list = ref([
 ])
 
 const handleClick = (index) => {
-  console.log(index)
+	uni.navigateTo({
+		url: '/pages/calculatorDetail/calculatorDetail'
+	})
 }
 
 const handleSearch = (value) => {
