@@ -102,12 +102,12 @@
 
 
 .page[data-v-b2d018fa] {
-  background: #F9FAFB;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+	background: #f9fafb;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 .list[data-v-b2d018fa] {
-  flex: 1;
-  /* padding: 0 15rpx; */
+	flex: 1;
+	/* padding: 0 15rpx; */
 }

@@ -70,10 +70,10 @@ if (uni.restoreGlobal) {
       const phone = vue.ref("");
       const password = vue.ref("");
       const onPhoneInput = (e) => {
-        formatAppLog("log", "at pages/login/login.vue:68", "手机号输入:", phone.value);
+        formatAppLog("log", "at pages/login/login.vue:50", "手机号输入:", phone.value);
       };
       const onPasswordInput = (e) => {
-        formatAppLog("log", "at pages/login/login.vue:72", "密码输入:", password.value);
+        formatAppLog("log", "at pages/login/login.vue:54", "密码输入:", password.value);
       };
       const goReset = () => {
         uni.navigateTo({
@@ -160,7 +160,7 @@ if (uni.restoreGlobal) {
         vue.createElementVNode("button", {
           class: "login-btn",
           onClick: $setup.handleLogin
-        }, " 登录 ")
+        }, "登录")
       ]),
       vue.createElementVNode("view", { class: "register-wrapper" }, [
         vue.createElementVNode("text", { class: "normal" }, "还没有账号?"),
@@ -324,7 +324,7 @@ if (uni.restoreGlobal) {
                   key: item,
                   class: "rate-btn",
                   onClick: ($event) => $setup.loanRate = item
-                }, vue.toDisplayString(item) + "% ", 9, ["onClick"]);
+                }, vue.toDisplayString(item) + "%", 9, ["onClick"]);
               }),
               64
               /* STABLE_FRAGMENT */
@@ -335,7 +335,7 @@ if (uni.restoreGlobal) {
       vue.createElementVNode("view", {
         class: "submit",
         onClick: $setup.goDetail
-      }, " 开始计算 ")
+      }, "开始计算")
     ]);
   }
   const PagesCalculatorCalculator = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$d], ["__scopeId", "data-v-0492adce"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/calculator/calculator.vue"]]);
@@ -428,7 +428,7 @@ if (uni.restoreGlobal) {
               1
               /* TEXT */
             ),
-            vue.createElementVNode("text", { class: "unit" }, " 元/月")
+            vue.createElementVNode("text", { class: "unit" }, "元/月")
           ]),
           vue.createElementVNode("view", { class: "detail" }, [
             vue.createElementVNode("text", { class: "detail-text" }, "查看详情"),
@@ -687,7 +687,7 @@ if (uni.restoreGlobal) {
         });
       };
       const handleSearch = (value) => {
-        formatAppLog("log", "at pages/history/history.vue:51", "搜索内容：", value);
+        formatAppLog("log", "at pages/history/history.vue:44", "搜索内容：", value);
       };
       const __returned__ = { list, handleClick, handleSearch, ref: vue.ref, HistoryCell, HistoryHeaderView };
       Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
@@ -1012,7 +1012,7 @@ if (uni.restoreGlobal) {
             1
             /* TEXT */
           ),
-          vue.createElementVNode("text", { class: "repayment-unit" }, " 元/月")
+          vue.createElementVNode("text", { class: "repayment-unit" }, "元/月")
         ]),
         vue.createElementVNode("view", { class: "result-bottom" }, [
           vue.createElementVNode("view", { class: "bottom-item" }, [
@@ -1083,7 +1083,7 @@ if (uni.restoreGlobal) {
       const confirmPassword = vue.ref("");
       const agree = vue.ref(false);
       const handleInput = (e) => {
-        formatAppLog("log", "at pages/register/register.vue:91", e.detail.value);
+        formatAppLog("log", "at pages/register/register.vue:61", e.detail.value);
       };
       const goProtocol = (title) => {
         uni.navigateTo({
@@ -1201,17 +1201,17 @@ if (uni.restoreGlobal) {
           vue.createElementVNode("text", {
             class: "link",
             onClick: _cache[4] || (_cache[4] = ($event) => $setup.goProtocol("用户服务协议"))
-          }, " 《用户服务协议》 "),
+          }, "《用户服务协议》"),
           vue.createElementVNode("text", { class: "gray" }, "和"),
           vue.createElementVNode("text", {
             class: "link",
             onClick: _cache[5] || (_cache[5] = ($event) => $setup.goProtocol("隐私政策"))
-          }, " 《隐私政策》 ")
+          }, "《隐私政策》")
         ]),
         vue.createElementVNode("button", {
           class: "register-btn",
           onClick: $setup.register
-        }, " 注册账号 ")
+        }, "注册账号")
       ])
     ]);
   }
@@ -1223,9 +1223,9 @@ if (uni.restoreGlobal) {
       const url = vue.ref("https://example.com");
       onLoad((options) => {
         if (options.title === "用户服务协议") {
-          url.value = "/pages/webview/Data/用户服务协议.html";
+          url.value = "https://www.baidu.com";
         } else {
-          url.value = "/pages/webview/Data/隐私政策.html";
+          url.value = "https://www.baidu.com";
         }
       });
       const __returned__ = { url, get onLoad() {
@@ -1249,7 +1249,7 @@ if (uni.restoreGlobal) {
         return password.value.length >= 6 && confirmPassword.value.length >= 6 && password.value === confirmPassword.value;
       });
       const handleInput = (e) => {
-        formatAppLog("log", "at pages/reset/reset.vue:86", e.detail.value);
+        formatAppLog("log", "at pages/reset/reset.vue:56", e.detail.value);
       };
       const submit = () => {
         if (!isMatch.value) {
@@ -1347,7 +1347,7 @@ if (uni.restoreGlobal) {
       vue.createElementVNode("button", {
         class: "confirm-btn",
         onClick: $setup.submit
-      }, " 确认 ")
+      }, "确认")
     ]);
   }
   const PagesResetReset = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__scopeId", "data-v-76af0740"], ["__file", "/Users/fenghanxu/Desktop/UniApp-MortgageCalculator/pages/reset/reset.vue"]]);
